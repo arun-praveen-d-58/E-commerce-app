@@ -1,6 +1,8 @@
 
 
 import 'package:amazon_clone/features/auth/screens/auth_screens.dart';
+import 'package:amazon_clone/features/auth/services/auth_services.dart';
+import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/router.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,9 +14,22 @@ void main() => runApp(MultiProvider(providers:[
   ChangeNotifierProvider(create: (context)=> UserProvider(),)
 ],child: MyApp()));
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  final AuthService authService = AuthService();
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    authService.getUserData(context);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -56,9 +71,10 @@ class MyApp extends StatelessWidget {
         ),
       ),*/
 
-      home: const AuthScreen(
-
-    ),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+              ? const HomeScreen()
+             
+          : const AuthScreen(),
 
     );
   }
