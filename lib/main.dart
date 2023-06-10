@@ -11,6 +11,7 @@ import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:provider/provider.dart';
 
 import 'common/bottom_bar.dart';
+import 'features/admin/screens/admin_screen.dart';
 
 void main() => runApp(MultiProvider(providers:[
   ChangeNotifierProvider(create: (context)=> UserProvider(),)
@@ -72,12 +73,11 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
       ),*/
-
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-            ? const BottomBar()
-             
+          ? Provider.of<UserProvider>(context).user.type == 'user'
+          ? const BottomBar()
+          : const AdminScreen()
           : const AuthScreen(),
-
     );
   }
 }
