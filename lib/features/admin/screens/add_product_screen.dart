@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import '../../../common/custom_button.dart';
 import '../../../common/custom_textfield.dart';
 import '../../../constants/global_variables.dart';
+import '../../../constants/utils.dart';
+import '../services/admin_services.dart';
 
 class AddProductScreen extends StatefulWidget {
   static const String routeName = '/add-product';
@@ -27,7 +29,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
-  //final AdminServices adminServices = AdminServices();
+  final AdminServices adminServices = AdminServices();
 
   String category = 'Mobiles';
   List<File> images = [];
@@ -49,8 +51,26 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Books',
     'Fashion'
   ];
+  void selectImages() async {
+    var res = await pickImages();
+    setState(() {
+      images = res;
+    });
+  }
 
-
+  void sellProduct() {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.sellProduct(
+        context: context,
+        name: productNameController.text,
+        description: descriptionController.text,
+        price: double.parse(priceController.text),
+        quantity: double.parse(quantityController.text),
+        category: category,
+        images: images,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +118,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 )
                     : GestureDetector(
-                  onTap: (){
-
-
-                  },//selectImages,
+                  onTap: selectImages,//selectImages,
                   child: DottedBorder(
                     borderType: BorderType.RRect,
                     radius: const Radius.circular(10),
@@ -141,7 +158,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: descriptionController,
-                  hintText: 'Product Name',
+                  hintText: 'Description',
                   maxLines: 7,
 
                 ),
@@ -177,9 +194,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 10),
                 CustomButton(
                   text: 'Sell',
-                  onTap: (){
-
-                  }//sellProduct,
+                  onTap: sellProduct//sellProduct,
                 ),
               ],
             ),

@@ -24,7 +24,9 @@ app.get('/hello-world', function(req,res){ //request,result
 const express = require('express'); // import 'package:express/express.dart'
 const mongoose = require('mongoose');
 require('dotenv').config()
-const authRouter = require('./routes/auth'); //INIT        //import './features/auth/screens/auth_screens.dart'
+const authRouter = require('./routes/auth'); 
+const adminRouter = require('./routes/admin');
+//INIT        //import './features/auth/screens/auth_screens.dart'
 //middleware
 //Client ->Node Http server -> express.js 
 //       <-           |                 |
@@ -46,7 +48,7 @@ const db = process.env.DB;
 //middleware
 app.use(express.json());
 app.use(authRouter);
-
+app.use(adminRouter);
 
 //connections
 mongoose.connect(db).then(() => {
