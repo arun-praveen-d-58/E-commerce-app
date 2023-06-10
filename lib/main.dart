@@ -2,7 +2,9 @@
 
 import 'package:amazon_clone/features/auth/screens/auth_screens.dart';
 import 'package:amazon_clone/features/auth/services/auth_services.dart';
+
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
+
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/router.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +21,7 @@ void main() => runApp(MultiProvider(providers:[
 
 class MyApp extends StatefulWidget {
 
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -31,6 +34,21 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     authService.getUserData(context);
+  }
+
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+final AuthService authService = AuthService();
+
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
