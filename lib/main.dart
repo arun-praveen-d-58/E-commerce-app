@@ -26,21 +26,6 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-  final AuthService authService = AuthService();
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    authService.getUserData(context);
-  }
-
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
 
 class _MyAppState extends State<MyApp> {
 final AuthService authService = AuthService();
@@ -51,7 +36,6 @@ final AuthService authService = AuthService();
     super.initState();
   }
 
-  @override
   Widget build(BuildContext context) {
 
     return MaterialApp(
