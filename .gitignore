@@ -35,7 +35,7 @@ node_modules/
 
 # Web related
 lib/generated_plugin_registrant.dart
-
+lib/constants/env.dart
 # Symbolication related
 app.*.symbols
 
